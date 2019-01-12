@@ -12,13 +12,13 @@ io.on('connection', function(socket){
 	
 	// When a new 'chat message' is received, show it in the console
 	socket.on('chat message', function(msg){
-    		console.log('message: ' + msg);
+    	console.log('message: ' + msg);
 		io.emit('chat message', msg);
 	});
 	
 	// When a client close the web page, it fires a 'disconnect' event
 	socket.on('disconnect', function(){
-    		console.log('user disconnected');
+    	console.log('user disconnected');
 	});
 });
 
