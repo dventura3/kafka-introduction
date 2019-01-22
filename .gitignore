@@ -1,2 +1,7 @@
 socket.io/node_modules/
 hello-kafka/node_modules/
+rest-avro-kafka/node_modules/
+avro-kafka-consumer1-producer2/node_modules
+
+.DS_Store
+.DS_*

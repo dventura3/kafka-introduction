@@ -1,0 +1,20 @@
+{
+  "name": "avro-kafka-consumer1-producer2",
+  "version": "1.0.0",
+  "description": "Example about how to use avro schema registy in nodejs consumer and producer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kafka",
+    "avro",
+    "schema",
+    "registry"
+  ],
+  "author": "Daniela Ventura",
+  "license": "ISC",
+  "dependencies": {
+    "kafka-node-avro": "^1.0.0"
+  }
+}

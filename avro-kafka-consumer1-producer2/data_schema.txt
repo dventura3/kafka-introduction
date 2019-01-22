@@ -1,0 +1,26 @@
+>> Data Schema:
+
+* Version 1:
+
+{
+	"value_schema": "{\"type\": \"record\", \"name\": \"user\", \"fields\": [{\"name\": \"name\", \"type\": \"string\"}, {\"name\": \"surname\", \"type\": \"string\"}]}",
+	"records": [{
+		"value": {
+			"name": "John",
+			"surname": "Smith"
+		}
+	}]
+}
+
+* Version 2:
+
+{
+	"value_schema": "{\"type\": \"record\", \"name\": \"user\", \"fields\": [{\"name\": \"name\", \"type\": \"string\"}, {\"name\": \"surname\", \"type\": \"string\"}, {\"name\": \"age\", \"type\": \"int\"}]}",
+	"records": [{
+		"value": {
+			"name": "John",
+			"surname": "Smith",
+			"age": 30
+		}
+	}]
+}

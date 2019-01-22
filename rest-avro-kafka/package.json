@@ -1,0 +1,19 @@
+{
+  "name": "rest-avro-kafka",
+  "version": "1.0.0",
+  "description": "Example to show how to use avro schema registry and kafka-rest",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "avro",
+    "kafka-rest",
+    "kafka"
+  ],
+  "author": "Daniela Ventura",
+  "license": "ISC",
+  "dependencies": {
+    "kafka-rest": "0.0.5"
+  }
+}
