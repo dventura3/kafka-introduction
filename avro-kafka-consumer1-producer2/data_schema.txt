@@ -24,3 +24,14 @@
 		}
 	}]
 }
+
+
+>> Useful APIs:
+
+@GET http://localhost:8081/config
+
+@GET http://localhost:8081/subjects/
+
+@GET http://localhost:8081/subjects/<orders-topic-value>/versions
+
+@GET http://localhost:8081/subjects/<orders-topic-value>/versions/1
