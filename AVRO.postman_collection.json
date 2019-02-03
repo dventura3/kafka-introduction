@@ -1,0 +1,86 @@
+{
+	"variables": [],
+	"info": {
+		"name": "AVRO",
+		"_postman_id": "dc6d685f-3083-50ec-655f-42da3673dd8d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Produce a message with Avro key and value.",
+			"request": {
+				"url": "http://localhost:8082/topics/test2",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.kafka.avro.v2+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.kafka.v2+json, application/vnd.kafka+json, application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"key_schema\": \"{\\\"name\\\":\\\"user_id\\\"  ,\\\"type\\\": \\\"int\\\"   }\",\n\t\"value_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"User\\\", \\\"fields\\\": [{\\\"name\\\": \\\"name\\\", \\\"type\\\": \\\"string\\\"}]}\",\n\t\"records\": [{\n\t\t\"key\": 1,\n\t\t\"value\": {\n\t\t\t\"name\": \"testUser\"\n\t\t}\n\t}]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product in mongoDB using AVRO value_schema_id",
+			"request": {
+				"url": "http://localhost:8082/topics/orders-topic",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.kafka.avro.v2+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.kafka.v2+json, application/vnd.kafka+json, application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"value_schema_id\": 81,\n\t\"records\": [{\n\t\t\"value\": {\n\t\t\t\"id\": 4,\n\t\t\t\"created\": \"2016-05-06 13:55:00\",\n\t\t\t\"product\": \"FU-DATAMOUNTAINEER-20150201-100\",\n\t\t\t\"price\": 92029\n\t\t}\n\t}]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product in mongoDB using full AVRO value_schema",
+			"request": {
+				"url": "http://localhost:8082/topics/orders-topic",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.kafka.avro.v2+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.kafka.v2+json, application/vnd.kafka+json, application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"value_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"myrecord\\\", \\\"fields\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"int\\\"}, {\\\"name\\\": \\\"created\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"product\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"price\\\", \\\"type\\\": \\\"double\\\"}]}\",\n\t\"records\": [{\n\t\t\"value\": {\n\t\t\t\"id\": 3,\n\t\t\t\"created\": \"2016-05-06 13:55:00\",\n\t\t\t\"product\": \"FU-DATAMOUNTAINEER-20150201-100\",\n\t\t\t\"price\": 10000\n\t\t}\n\t}]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

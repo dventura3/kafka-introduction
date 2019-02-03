@@ -45,7 +45,7 @@ export CONFLUENT_HOME=/Users/Daniela/Desktop/Documenti_Accenture/progetto_Kafka/
 
 - Run the MongoDB connector in the MONGDB-CONNECTOR folder:
 
-$CONFLUENT_HOME/bin/connect-standalone $CONFLUENT_HOME/etc/schema-registry/connect-avro-standalone.properties $CONFLUENT_HOME/etc/MongoDbSinkConnector.properties
+./bin/connect-standalone ./etc/schema-registry/connect-avro-standalone.properties ./etc/MongoDbSinkConnector.properties
 
 - Run Avro Producer
 

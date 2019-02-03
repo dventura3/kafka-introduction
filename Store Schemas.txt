@@ -1,0 +1,22 @@
+>> View all subjects stored in Schema Registry:
+
+curl --silent -X GET http://localhost:8081/subjects/
+
+
+
+>> View details about one subject (with name transactions-value):
+
+$ curl --silent -X GET http://localhost:8081/subjects/transactions-value/versions/latest | jq .
+{
+  "subject": "transactions-value",
+  "version": 1,
+  "id": 1,
+  "schema": "{\"type\":\"record\",\"name\":\"Payment\",\"namespace\":\"io.confluent.examples.clients.basicavro\",\"fields\":[{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"amount\",\"type\":\"double\"}]}"
+}
+
+(What is subject? subject: the scope in which schemas for the messages in the topic "transactions" can evolve)
+
+
+
+>> Store Schema in Schema Registry:
+
