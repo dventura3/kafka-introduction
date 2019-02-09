@@ -25,4 +25,4 @@ conf = {'bootstrap.servers': 'localhost:9092', 'client.id': 'test', 'default.top
 
 
 a = admin.AdminClient(conf)
-example_delete_topics(a, ['orders-topic'])
+example_delete_topics(a, ['test-topic', 'orders-topic'])

@@ -1,0 +1,101 @@
+1) Start Mongo and Mongo Shell:
+
+mongod &
+
+mongo
+
+
+2) Start Zookeper
+
+./bin/zookeeper-server-start ./etc/kafka/zookeeper.properties
+
+
+3) Start Kafka
+
+./bin/kafka-server-start ./etc/kafka/server.properties
+
+
+4) Start Connector
+
+./bin/connect-standalone ./etc/schema-registry/connect-avro-standalone-JSON.properties ./etc/MongoDbSinkConnector_JSON.properties
+
+
+5) Start kafka-console-producer
+
+./bin/kafka-console-producer --broker-list localhost:9092 --topic test-topic
+
+and write the following line:
+
+{"schema":{"type":"struct","fields":[{"type":"int64","optional":false,"field":"registertime"},{"type":"string","optional":false,"field":"userid"},{"type":"string","optional":false,"field":"regionid"},{"type":"string","optional":false,"field":"gender"}],"optional":false,"name":"ksql.users"},"payload":{"registertime":1493819497170,"userid":"User_1","regionid":"Region_5","gender":"MALE"}}
+
+It is important that the JSON is encoded in 1 line. To help on this task, use the online JSON formatter https://www.freeformatter.com/json-formatter.html *using intendation level: compact*
+
+
+-------------------
+
+
+
+To run Mongodb Sink connector using JSON Converter you need to create the following files:
+
+
+1) Create the file connect-avro-standalone-JSON.properties in <confluent_installation_path>/etc/schema-registry/ :
+
+bootstrap.servers=localhost:9092
+
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=false
+value.converter.schemas.enable=true
+
+internal.key.converter=org.apache.kafka.connect.json.JsonConverter
+internal.value.converter=org.apache.kafka.connect.json.JsonConverter
+internal.key.converter.schemas.enable=false
+internal.value.converter.schemas.enable=true
+
+offset.storage.file.filename=/tmp/connect.offsets
+plugin.path=/Users/Daniela/Desktop/Documenti_Accenture/progetto_Kafka/confluent-5.1.0/share/java
+
+
+
+2) Create the file MongoDbSinkConnector_JSON.properties and place it in <confluent_installation_path>/etc :
+
+name=MyMongoDbSinkConnector
+topics=test-topic
+tasks.max=1
+
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=false
+value.converter.schemas.enable=true
+
+connector.class=at.grahsl.kafka.connect.mongodb.MongoDbSinkConnector
+
+mongodb.connection.uri=mongodb://localhost:27017/kafkaconnect?w=1&journal=true
+mongodb.collection=kafkatopic_json
+mongodb.max.num.retries=3
+mongodb.retries.defer.timeout=5000
+mongodb.value.projection.type=none
+mongodb.value.projection.list=
+mongodb.document.id.strategy=at.grahsl.kafka.connect.mongodb.processor.id.strategy.BsonOidStrategy
+mongodb.document.id.strategies=
+mongodb.key.projection.type=none
+mongodb.key.projection.list=
+mongodb.field.renamer.mapping=[]
+mongodb.field.renamer.regexp=[]
+mongodb.post.processor.chain=at.grahsl.kafka.connect.mongodb.processor.DocumentIdAdder
+mongodb.change.data.capture.handler=
+mongodb.delete.on.null.values=false
+mongodb.writemodel.strategy=at.grahsl.kafka.connect.mongodb.writemodel.strategy.ReplaceOneDefaultStrategy
+mongodb.max.batch.size=0
+
+
+
+-------------------
+
+The jar files of the Mongodb kafka connector has to be placed in the follow directory:
+
+/Users/Daniela/Desktop/Documenti_Accenture/progetto_Kafka/confluent-5.1.0/share/java/kafka-connect-mongodb
+
+So, please create the folder "kafka-connect-mongodb" in <confluent_installation_path>/share/java/
+
+

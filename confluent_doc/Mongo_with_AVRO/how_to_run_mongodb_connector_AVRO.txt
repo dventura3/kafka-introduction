@@ -1,0 +1,116 @@
+1) Start Mongo and Mongo Shell:
+
+mongod &
+
+mongo
+
+
+2) Start Zookeper
+
+./bin/zookeeper-server-start ./etc/kafka/zookeeper.properties
+
+
+3) Start Kafka
+
+./bin/kafka-server-start ./etc/kafka/server.properties
+
+
+4) Start Schema-Registry
+
+./bin/schema-registry-start ./etc/schema-registry/schema-registry.properties
+
+
+5) Start Kafka-Rest
+
+./bin/kafka-rest-start ./etc/kafka-rest/kafka-rest.properties
+
+
+6) Start Connector
+
+./bin/connect-standalone ./etc/schema-registry/connect-avro-standalone.properties ./etc/MongoDbSinkConnector_AVRO.properties
+
+
+-------------------
+
+
+
+To run Mongodb Sink connector using AVRO Converter you need to create the following files:
+
+
+
+1) Create the file connect-avro-standalone.properties in <confluent_installation_path>/etc/schema-registry/ :
+
+bootstrap.servers=localhost:9092
+
+key.converter=io.confluent.connect.avro.AvroConverter
+key.converter.schema.registry.url=http://localhost:8081
+value.converter=io.confluent.connect.avro.AvroConverter
+value.converter.schema.registry.url=http://localhost:8081
+
+internal.key.converter=org.apache.kafka.connect.json.JsonConverter
+internal.value.converter=org.apache.kafka.connect.json.JsonConverter
+internal.key.converter.schemas.enable=false
+internal.value.converter.schemas.enable=false
+
+offset.storage.file.filename=/tmp/connect.offsets
+plugin.path=/Users/Daniela/Desktop/Documenti_Accenture/progetto_Kafka/confluent-5.1.0/share/java
+
+
+
+2) Create the file MongoDbSinkConnector_AVRO.properties and place it in <confluent_installation_path>/etc :
+
+name=MyMongoDbSinkConnector
+topics=orders-topic
+tasks.max=1
+
+key.converter=io.confluent.connect.avro.AvroConverter
+key.converter.schema.registry.url=http://localhost:8081
+value.converter=io.confluent.connect.avro.AvroConverter
+value.converter.schema.registry.url=http://localhost:8081
+
+connector.class=at.grahsl.kafka.connect.mongodb.MongoDbSinkConnector
+
+#specific MongoDB sink connector props
+#listed below are the defaults
+mongodb.connection.uri=mongodb://localhost:27017/kafkaconnect?w=1&journal=true
+mongodb.collection=kafkatopic
+mongodb.max.num.retries=3
+mongodb.retries.defer.timeout=5000
+mongodb.value.projection.type=none
+mongodb.value.projection.list=
+mongodb.document.id.strategy=at.grahsl.kafka.connect.mongodb.processor.id.strategy.BsonOidStrategy
+mongodb.document.id.strategies=
+mongodb.key.projection.type=none
+mongodb.key.projection.list=
+mongodb.field.renamer.mapping=[]
+mongodb.field.renamer.regexp=[]
+mongodb.post.processor.chain=at.grahsl.kafka.connect.mongodb.processor.DocumentIdAdder
+mongodb.change.data.capture.handler=
+mongodb.delete.on.null.values=false
+mongodb.writemodel.strategy=
+
+
+
+-------------------
+
+The jar files of the Mongodb kafka connector has to be placed in the follow directory:
+
+/Users/Daniela/Desktop/Documenti_Accenture/progetto_Kafka/confluent-5.1.0/share/java/kafka-connect-mongodb
+
+So, please create the folder "kafka-connect-mongodb" in <confluent_installation_path>/share/java/
+
+
+
+-------------------
+
+Use the postman collection in this github folder to execute a query to Kafka-Rest.
+It is important to notive that the REST query has the following information in the HTTP Header:
+
+Content-Type: application/vnd.kafka.avro.v2+json
+Accept: application/vnd.kafka.v2+json, application/vnd.kafka+json, application/json
+
+Also pay attention to the fact that "value_schema" in the body is actualyl a STRING.
+
+
+
+
