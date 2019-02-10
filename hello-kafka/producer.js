@@ -1,14 +1,12 @@
 // Reference for kafka-node:
 // https://www.npmjs.com/package/kafka-node
 
-let express = require('express');
-let kafka = require('kafka-node');
-let bodyParser = require('body-parser');
+const config = require('./config');
+const express = require('express');
+const kafka = require('kafka-node');
+const bodyParser = require('body-parser');
 let app = express();
 
-let broker = 'localhost:9092';
-let defualtTopic = 'posts';
-let defualtPartition = 0;
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -16,7 +14,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 let Producer = kafka.Producer,
-    client = new kafka.KafkaClient({kafkaHost: broker}),
+    client = new kafka.KafkaClient({kafkaHost: config.broker}),
     producer = new Producer(client);
 
 
@@ -44,9 +42,9 @@ app.get('/', (req, res) => {
 */
 app.post('/publish', (req, res) => {
     payloads = [{
-        topic: (req.body.hasOwnProperty('topic')) ? req.body.topic : defualtTopic,
+        topic: (req.body.hasOwnProperty('topic')) ? req.body.topic : config.topic.name,
         messages: req.body.messages,
-        partition: (req.body.hasOwnProperty('partition')) ? req.body.partition : defualtPartition
+        partition: (req.body.hasOwnProperty('partition')) ? req.body.partition : config.topic.partition
     }];
     producer.send(payloads, (err, data) => {
         if (!err)

@@ -1,16 +1,11 @@
-let broker = 'localhost:9092';
-let defualtTopic = 'posts';
-let defualtOffset = 0;
-let defualtPartition = 0;
-let groupID = 'group-0';
-
-let kafka = require('kafka-node'),
+const config = require('./config');
+const kafka = require('kafka-node'),
     Consumer = kafka.Consumer,
-    client = new kafka.KafkaClient({kafkaHost: broker}),
+    client = new kafka.KafkaClient({kafkaHost: config.broker}),
     consumer = new Consumer(
         client,
-        [{ topic: defualtTopic, offset: defualtOffset, partition: defualtPartition}],
-        { groupId: groupID, autoCommit: false, fromOffset: true }
+        [{ topic: config.topic.name, offset: config.topic.offset, partition: config.topic.partition}],
+        { groupId: config.consumer.groupID, autoCommit: false, fromOffset: true }
     );
 
 
