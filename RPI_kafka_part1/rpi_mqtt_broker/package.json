@@ -1,0 +1,19 @@
+{
+  "name": "rpi",
+  "version": "1.0.0",
+  "description": "Raspberry PI code for MQTT broker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Raspberry",
+    "pi",
+    "MQTT"
+  ],
+  "author": "Daniela Ventura",
+  "license": "ISC",
+  "dependencies": {
+    "mosca": "^2.8.3"
+  }
+}
