@@ -1,22 +1,27 @@
-var kafka = require('kafka-node'),
+let broker = 'localhost:9092';
+let defualtTopic = 'posts';
+let defualtOffset = 0;
+let defualtPartition = 0;
+let groupID = 'group-0';
+
+let kafka = require('kafka-node'),
     Consumer = kafka.Consumer,
-    client = new kafka.KafkaClient(),
-    consumer = new Consumer(client,
-        [{ topic: 'Posts', offset: 0}],
-        {
-            autoCommit: false
-        }
+    client = new kafka.KafkaClient({kafkaHost: broker}),
+    consumer = new Consumer(
+        client,
+        [{ topic: defualtTopic, offset: defualtOffset, partition: defualtPartition}],
+        { groupId: groupID, autoCommit: false, fromOffset: true }
     );
 
 
-consumer.on('message', function (message) {
+consumer.on('message', (message) => {
     console.log(message);
 });
 
-consumer.on('error', function (err) {
-    console.log('Error:',err);
+consumer.on('error', (err) => {
+    console.log('Error:', err);
 })
 
-consumer.on('offsetOutOfRange', function (err) {
-    console.log('offsetOutOfRange:',err);
+consumer.on('offsetOutOfRange', (err) => {
+    console.log('offsetOutOfRange:', err);
 })

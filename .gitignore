@@ -5,3 +5,6 @@ avro-kafka-consumer1-producer2/node_modules
 
 .DS_Store
 .DS_*
+
+
+hello-kafka/package-lock.json
