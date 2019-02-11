@@ -15,6 +15,7 @@
   "author": "Daniela Ventura",
   "license": "ISC",
   "dependencies": {
-    "mqtt": "^2.18.8"
+    "mqtt": "^2.18.8",
+    "kafka-node": "^4.0.0"
   }
 }

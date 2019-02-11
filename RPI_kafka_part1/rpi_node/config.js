@@ -3,7 +3,7 @@
 module.exports = {
 	broker: 'localhost:9092',
 	topic: {
-		name: 'posts',
+		name: 'colorSensor',
 		partition: 0,
 		offset: 0
 	},

@@ -4,6 +4,7 @@ rest-avro-kafka/node_modules/
 avro-kafka-consumer1-producer2/node_modules
 RPI_kafka_part1/rpi_node/node_modules
 RPI_kafka_part1/rpi_mqtt_broker/node_modules
+RPI_kafka_part1/ui/node_modules
 
 .DS_Store
 .DS_*
@@ -12,3 +13,4 @@ RPI_kafka_part1/rpi_mqtt_broker/node_modules
 hello-kafka/package-lock.json
 RPI_kafka_part1/rpi_node/package-lock.json
 RPI_kafka_part1/rpi_mqtt_broker/package-lock.json
+RPI_kafka_part1/ui/package-lock.json
