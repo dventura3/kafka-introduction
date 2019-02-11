@@ -1,13 +1,16 @@
+'use strict';
+
+const config = require('./config');
+const colorSensor = require('./colorSensor');
 const mqtt = require('mqtt');
-const client  = mqtt.connect([{ host: 'localhost', port: 1883 }]);
+const client  = mqtt.connect([{ host: config.mqtt.broker.host, port: config.mqtt.broker.port }]);
  
 client.on('connect', () => {
 	// send configuration to ESP32
-	const config = {"sensors":[{"Type":"ColorSensor","IO":{"Pin":"I2C1","ID":"0x73"}}]};
-	client.publish('esp32/Jupiter/config', JSON.stringify(config));
-	
+	client.publish(config.mqtt.topics.configuration, JSON.stringify(config.mqtt.configData));
+
 	// subscribe to color sensor events
-  	client.subscribe('esp32/Jupiter/sensors/ColorSensor', function (err) {
+  	client.subscribe(config.mqtt.topics.colorSensor, function (err) {
 	    if (!err) {
 	      	console.log('Subscription to esp32/Jupiter/sensors/ColorSensor on port 1883');
 	    }
@@ -15,7 +18,11 @@ client.on('connect', () => {
 });
  
 client.on('message', (topic, message) => {
-  // message is Buffer
-  console.log(message.toString())
-  //client.end()
+	var payload = JSON.parse(message);
+  	// message is Buffer
+  	//console.log(payload.Data.Color);
+  	colorSensor.extractRGBcomponents(payload);
+  	//client.end()
 });
+
+
