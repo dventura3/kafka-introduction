@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-	broker: 'localhost:9092',
+	broker: '0.0.0.0:9092',
 	topic: {
-		name: 'colorSensor',
+		name: 'color',
 		partition: 0,
 		offset: 0
 	},

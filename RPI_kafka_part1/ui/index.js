@@ -10,11 +10,12 @@ const kafka = require('kafka-node'),
 
 // Read latest offset
 let latestOffset = config.topic.offset;
+/*
 let offset = new kafka.Offset(client);
 offset.fetch([{ topic: config.topic.name, partition: config.topic.partition, time: -1 }], (err, data) => {
     latestOffset = data[config.topic.name]['0'][0];
 });
-
+*/
 
 console.log("Consumer current offset: " + latestOffset);
 
