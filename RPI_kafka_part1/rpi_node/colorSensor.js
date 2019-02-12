@@ -9,12 +9,14 @@ exports.extractRGBcomponents = function(payload) {
 	color.green = ((colorPayload>>8)&0xFF);
 	color.red = ((colorPayload>>16)&0xFF);
 
+    /*
 	console.log("------------------------");
 	console.log("number " + colorPayload);
 	console.log("red " + color.red);
 	console.log("green " + color.green);
 	console.log("blue " + color.blue);
 	console.log("------------------------");
+    */
 
 	return color;
 }

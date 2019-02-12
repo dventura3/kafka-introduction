@@ -9,8 +9,7 @@ const kafka = require('kafka-node');
 const Producer = kafka.Producer,
       client = new kafka.KafkaClient({kafkaHost: config.broker}),
       producer = new Producer(client);
-const topic = config.topic.name;
-const partition = config.topic.partition; 
+
 
 
 mqtt_client.on('connect', () => {
@@ -30,7 +29,7 @@ mqtt_client.on('message', (topic, message) => {
   	// message is Buffer
   	//console.log(payload.Data.Color);
   	let color = colorSensor.extractRGBcomponents(payload);
-  	publishColor('color', color, 0);
+  	publishColor(config.topic.name, color, config.topic.partition);
   	//client.end()
 });
 
@@ -51,10 +50,10 @@ function publishColor(topic, color, partition){
         partition: partition
     }];
     producer.send(payloads, (err, data) => {
-        if (!err)
-            console.log(data);
-        else
-            console.log(err);
+        if (err)
+          console.log(err);
+        //else
+        //  console.log(data);
     });    
 };
 

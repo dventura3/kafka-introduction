@@ -34,7 +34,7 @@ function changeBackgroundColor(color) {
 
 // Kafka
 consumer.on('message', (message) => {
-    console.log(JSON.stringify(message));
+    //console.log(JSON.stringify(message));
     changeBackgroundColor(message.value)
 });
 
