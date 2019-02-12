@@ -17,7 +17,7 @@ mongo
 
 4) Start Connector
 
-./bin/connect-standalone ./etc/schema-registry/connect-avro-standalone-JSON.properties ./etc/MongoDbSinkConnector_JSON.properties
+/bin/connect-standalone ./etc/schema-registry/connect-avro-standalone-JSON.properties ./etc/kafka-connect-mongodb/MongoDbSinkConnector_JSON.properties
 
 
 5) Start kafka-console-producer
@@ -26,9 +26,12 @@ mongo
 
 and write the following line:
 
-{"schema":{"type":"struct","fields":[{"type":"int64","optional":false,"field":"registertime"},{"type":"string","optional":false,"field":"userid"},{"type":"string","optional":false,"field":"regionid"},{"type":"string","optional":false,"field":"gender"}],"optional":false,"name":"ksql.users"},"payload":{"registertime":1493819497170,"userid":"User_1","regionid":"Region_5","gender":"MALE"}}
+{"schema":{"type":"struct","fields":[{"type":"string","optional":false,"field":"topic"},{"type":"string","optional":false,"field":"value"},{"type":"int64","optional":false,"field":"offset"},{"type":"int64","optional":false,"field":"partition"},{"type":"int64","optional":false,"field":"highWaterOffset"},{"type":"string","optional":true,"field":"key"}],"optional":false,"name":"sensor.color"},"payload":{"topic":"color","value":"#0b0b07","offset":140,"partition":0,"highWaterOffset":526,"key":null}}
 
 It is important that the JSON is encoded in 1 line. To help on this task, use the online JSON formatter https://www.freeformatter.com/json-formatter.html *using intendation level: compact*
+
+// Example 2:
+{"schema":{"type":"struct","fields":[{"type":"int64","optional":false,"field":"registertime"},{"type":"string","optional":false,"field":"userid"},{"type":"string","optional":false,"field":"regionid"},{"type":"string","optional":false,"field":"gender"}],"optional":false,"name":"ksql.users"},"payload":{"registertime":1493819497170,"userid":"User_1","regionid":"Region_5","gender":"MALE"}}
 
 
 -------------------
@@ -53,6 +56,7 @@ internal.key.converter.schemas.enable=false
 internal.value.converter.schemas.enable=true
 
 offset.storage.file.filename=/tmp/connect.offsets
+# You need to change the path with your path
 plugin.path=/Users/Daniela/Desktop/Documenti_Accenture/progetto_Kafka/confluent-5.1.0/share/java
 
 

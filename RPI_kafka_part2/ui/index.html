@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Colored UI</title>
+  </head>
+  <body>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+  $(function () {
+    var socket = io();
+
+    socket.on('color', function(msg){
+      var p = $("body");
+      p.hide(1500).show(1500);
+      p.css("background-color", msg);
+    });
+
+  });
+  </script>
+
+  </body>
+</html>

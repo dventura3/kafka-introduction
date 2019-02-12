@@ -5,6 +5,11 @@ utils/avro-kafka-consumer1-producer2/node_modules
 RPI_kafka_part1/rpi_node/node_modules
 RPI_kafka_part1/rpi_mqtt_broker/node_modules
 RPI_kafka_part1/ui/node_modules
+RPI_kafka_part2/rpi_node/node_modules
+RPI_kafka_part2/rpi_mqtt_broker/node_modules
+RPI_kafka_part2/ui/node_modules
+RPI_kafka_part1/physical-prototyping-esp32/
+RPI_kafka_part2/physical-prototyping-esp32/
 
 .DS_Store
 .DS_*
@@ -14,3 +19,6 @@ hello-kafka/package-lock.json
 RPI_kafka_part1/rpi_node/package-lock.json
 RPI_kafka_part1/rpi_mqtt_broker/package-lock.json
 RPI_kafka_part1/ui/package-lock.json
+RPI_kafka_part2/rpi_node/package-lock.json
+RPI_kafka_part2/rpi_mqtt_broker/package-lock.json
+RPI_kafka_part2/ui/package-lock.json
